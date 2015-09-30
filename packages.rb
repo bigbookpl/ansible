@@ -14,12 +14,6 @@ execute 'set-gauke-startup' do
   command 'cp /usr/share/applications/guake.desktop /etc/xdg/autostart/'
 end
 
-template '/home/bigbook/xxs' do
-    source 'README.md'
-    mode 0755
-    action :create_if_missing
-end
-
 package 'zsh' do
   notifies :run, 'execute[download-ohmyzhs]', :immediately
 end
