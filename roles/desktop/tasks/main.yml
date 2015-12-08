@@ -1,0 +1,51 @@
+- name: add gnome repo 1
+  apt_repository: repo='ppa:gnome3-team/gnome3-staging' state=present
+- name: add gnome repo 2
+  apt_repository: repo='ppa:gnome3-team/gnome3' state=present
+- name: add atom repo
+  apt_repository: repo='ppa:webupd8team/atom' state=present
+
+- name: install software
+  apt:
+    name: '{{item}}'
+    update_cache: yes
+    state: latest
+  with_items:
+  - ubuntu-gnome-desktop
+  - curl
+  - mc
+  - nload
+  - git
+  - htop
+  - zsh
+  - chromium-browser
+  - openjdk-7-jdk
+  - atom
+  - keepass2
+
+- name: install GUAKE
+  apt: name=guake state=latest
+  notify:
+    - set startup GUAKE
+
+- name: install MONACO font
+  shell: curl -kL https://raw.github.com/cstrap/monaco-font/master/install-font-ubuntu.sh | bash
+  run_once: true
+
+- name: downalod ohmyzsh
+  shell: curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | bash
+  run_once: true
+
+- name: add RVM server key
+  shell: gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+
+- name: instal RVM
+  shell: curl -L https://get.rvm.io | bash -s stable
+
+- name: add RVM to autostart
+  shell: /bin/bash -l -c "echo -e \"\nsource /usr/local/rvm/scripts/rvm\" >> ~/.bashrc"
+
+- name: add RVM to autostart
+  shell: /bin/bash -l -c "source /usr/local/rvm/scripts/rvm"
+
+# - include: docker/install.yml
