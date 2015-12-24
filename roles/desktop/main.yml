@@ -1,0 +1,46 @@
+---
+- hosts: all
+  tasks:
+    - name: add gnome repo 1
+      apt_repository: repo='ppa:gnome3-team/gnome3-staging' state=present
+    - name: add gnome repo 2
+      apt_repository: repo='ppa:gnome3-team/gnome3' state=present
+    - name: instal GNOME
+      apt: name=ubuntu-gnome-desktop state=latest
+    - name: install GUAKE
+      apt: name=guake state=latest
+      notify:
+        - set startup GUAKE
+    - name: install CURL
+      apt: name=curl state=latest
+    - name: install MC
+      apt: name=mc state=latest
+    - name: install NLOAD
+      apt: name=nload state=latest
+    - name: install GIT
+      apt: name=git state=latest
+    - name: install HTOP
+      apt: name=htop state=latest
+    - name: add atom repository
+      apt_repository: repo='ppa:webupd8team/atom' state=present
+    - name: install ATOM
+      apt: name=atom state=latest
+    - name: install MONACO font
+      shell: curl -kL https://raw.github.com/cstrap/monaco-font/master/install-font-ubuntu.sh | bash
+      run_once: true
+    - name: install ZSH
+      apt: name=zsh state=latest
+    - name: downalod ohmyzsh
+      shell: curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | bash
+      run_once: true
+    - name: install CHROMIUM
+      apt: name=chromium-browser state=latest
+    - name: install OPENJDK-7
+      apt: name=openjdk-7-jdk state=latest
+    - name: install OPENJDK-7
+      apt: name=openjdk-7-jdk state=latest
+    - include: docker/install.yml
+
+  handlers:
+    - name: set startup GUAKE
+      command: sudo ln -s /usr/share/applications/guake.desktop /etc/xdg/autostart/

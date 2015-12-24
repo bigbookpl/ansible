@@ -3,3 +3,4 @@
   gather_facts: no
   roles:
     - desktop
+    - { role: rvm_io.rvm1-ruby, tags: ruby, sudo: True }
