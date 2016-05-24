@@ -5,23 +5,38 @@
 - name: add atom repo
   apt_repository: repo='ppa:webupd8team/atom' state=present
 
-- name: install software
-  apt:
-    name: '{{item}}'
-    update_cache: yes
-    state: latest
-  with_items:
-  - ubuntu-gnome-desktop
-  - curl
-  - mc
-  - nload
-  - git
-  - htop
-  - zsh
-  - chromium-browser
-  - openjdk-7-jdk
-  - atom
-  - keepass2
+- name: updating APT cache
+   apt: update_cache=yes
+
+- name: install curl
+  apt: name=curl state=latest
+
+- name: install mc
+  apt: name=mc state=latest
+
+- name: Install nload
+  apt: name=nload state=latest
+
+- name: install git
+  apt: name=git state=latest
+
+- name: install htop
+  apt: name=htop state=latest
+
+- name: install zsh
+  apt: name=zsh state=latest
+
+- name: install chromium-browser
+  apt: name=chromium-browser state=latest
+
+- name: install openjdk-8-jdk
+  apt: name=openjdk-8-jdk state=latest
+
+- name: install atom
+  apt: name=atom state=latest
+
+- name: install keepass2
+  apt: name=keepass2 state=latest
 
 - name: install GUAKE
   apt: name=guake state=latest
